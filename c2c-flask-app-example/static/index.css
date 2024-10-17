@@ -1,0 +1,94 @@
+/* General page layout */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+/* Main container styling */
+#container {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 80%;
+    max-width: 600px;
+}
+
+/* Header styling */
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* Webcam and label container styling */
+#webcam-container, #label-container {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Chat container styling */
+#chat-container {
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid #5c5c5c;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+/* Input area styling */
+#input-container {
+    display: flex;
+}
+
+#user-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #a6a6a6;
+    border-radius: 4px 0 0 4px;
+}
+
+/* Button styling */
+button {
+    padding: 10px 15px;
+    background-color: #ff000d;
+    color: #292929;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #004c9e;
+}
+
+#input-container button {
+    border-radius: 0 4px 4px 0;
+}
+
+/* Chat message styling */
+.message {
+    max-width: 80%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    word-wrap: break-word;
+}
+
+.user-message {
+    background-color: #5e5e5e;
+    color: #adffd1;
+    align-self: flex-end;
+    margin-left: auto;
+}
+
+.bot-message {
+    background-color: #5e5e5e;
+    color: #00ff6e;
+    align-self: flex-start;
+}

@@ -2,6 +2,8 @@
 const URL = "https://teachablemachine.withgoogle.com/models/-q6hHNGve/";
 let model, webcam, labelContainer, maxPredictions;
 let currentAnimal = "";
+let requestId; // To keep track of the requestAnimationFrame
+
 
 // Initialize webcam and model
 async function init() {
@@ -27,12 +29,14 @@ async function init() {
     }
 }
 
+
 // Main prediction loop
 async function loop() {
     webcam.update();
     await predict();
     window.requestAnimationFrame(loop);
 }
+
 
 // Predict function
 async function predict() {
@@ -43,6 +47,19 @@ async function predict() {
         if (prediction[i].probability > 0.5) {
             currentAnimal = prediction[i].className;
         }
+    }
+}
+// function to close webcam
+async function closeWebcam() {
+    cancelAnimationFrame(requestId); // Stop the prediction loop
+    if (webcam.webcam) {
+        const stream = webcam.webcam.srcObject;
+        const tracks = stream.getTracks();
+        tracks.forEach(track => track.stop()); // Stop all tracks (video and audio)
+        
+        // Remove webcam canvas
+        document.getElementById("webcam-container").removeChild(webcam.canvas);
+        labelContainer.innerHTML = ''; // Optional: clear the label container
     }
 }
 

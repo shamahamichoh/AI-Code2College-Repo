@@ -1,5 +1,5 @@
 // Teachable Machine model URL
-const URL = "https://teachablemachine.withgoogle.com/models/-q6hHNGve/";
+const URL = "https://teachablemachine.withgoogle.com/models/xJik2hSwH/";
 let model, webcam, labelContainer, maxPredictions;
 let currentAnimal = "";
 let requestId; // To keep track of the requestAnimationFrame

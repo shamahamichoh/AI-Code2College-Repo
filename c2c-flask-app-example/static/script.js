@@ -2,7 +2,6 @@
 const URL = "https://teachablemachine.withgoogle.com/models/xJik2hSwH/";
 let model, webcam, labelContainer, maxPredictions;
 
-
 // Initialize webcam and model
 async function init() {
     const modelURL = URL + "model.json";

@@ -18,8 +18,10 @@ app.secret_key = 'supersecretkey'
 @app.route('/')
 def home():
     return render_template('index.html')
-
-
+# knowledge page route
+@app.route('/knowledge_page')
+def knowledge_page():
+    return render_template('knowledge_page.html')
 # Chat route - handles the conversation with the LLM
 @app.route('/chat', methods=['POST'])
 def chat():

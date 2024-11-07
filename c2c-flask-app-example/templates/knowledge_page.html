@@ -1,10 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Medical AI TestKnowlege</title>
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
 <body>
-  <p1>knowlege_page</p1>  
-    
+    <div id="container">
+        <h1>My MRI AI</h1>
+        <!-- Webcam and image recognition elements -->
+        <div id="Test Images">
+           
+                
+            <!--added button to close webcam-->
+        </div>
+    </div>
+    <div id="camera page"></div>
+    <button onclick="init()">Camera</button>
+    <!--added button to close webcam-->
+    <button onclick="window.location.href='/index';">Camera Page</button>
+
+        <!-- Chat interface -->
+        <div id="chat-container"></div>
+        <div id="input-container">
+            <input type="text" id="user-input" placeholder="Ask the AI a question about your results">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <!-- Required scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

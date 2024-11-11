@@ -74,3 +74,12 @@
 .incorrect {
     background: #9c3939;
 }
+#question-image{
+    display: block;             /* Centers the image as a block element */
+    width: 100%;                /* Full width of the container */
+    max-width: 400px;           /* Limits maximum size for larger screens */
+    margin: 20px auto;          /* Centers the image and adds top/bottom space */
+    border-radius: 8px;         /* Optional: rounds the corners */
+
+
+}

@@ -1,6 +1,7 @@
 // Teachable Machine model URL
 const URL = "https://teachablemachine.withgoogle.com/models/xJik2hSwH/";
-let model, webcam, labelContainer, maxPredictions;
+let model, webcam, labelContainer, maxPredictions, currentBrain = "unkown";
+let requestId;
 
 // Initialize webcam and model
 async function init() {
@@ -32,32 +33,39 @@ async function init() {
 async function loop() {
     webcam.update();
     await predict();
-    window.requestAnimationFrame(loop);
+    requestId = window.requestAnimationFrame(loop);
+
 }
 
 
 // Predict function
 async function predict() {
     const prediction = await model.predict(webcam.canvas);
+    let found = false;
     for (let i = 0; i < maxPredictions; i++) {
         const classPrediction = prediction[i].className + ": " + prediction[i].probability.toFixed(2);
         labelContainer.childNodes[i].innerHTML = classPrediction;
         if (prediction[i].probability > 0.5) {
-            currentAnimal = prediction[i].className;
+            currentBrain = prediction[i].className;
+            found = true
         }
     }
+    if (!found) currentBrain = "unknown";
+
 }
 // function to close webcam
 async function closeWebcam() {
-    cancelAnimationFrame(requestId); // Stop the prediction loop
+    cancelAnimationFrame(requestId); // Stop prediction loop
     if (webcam.webcam) {
         const stream = webcam.webcam.srcObject;
         const tracks = stream.getTracks();
         tracks.forEach(track => track.stop()); // Stop all tracks (video and audio)
         
         // Remove webcam canvas
-        document.getElementById("webcam-container").removeChild(webcam.canvas);
-        labelContainer.innerHTML = ''; // Optional: clear the label container
+        if (webcam.canvas && document.getElementById("webcam-container").contains(webcam.canvas)) {
+            document.getElementById("webcam-container").removeChild(webcam.canvas);
+        }
+        labelContainer.innerHTML = '';
     }
 }
 
@@ -75,7 +83,7 @@ function sendMessage() {
         },
         body: JSON.stringify({
             message: userInput,
-            animalType: currentAnimal
+            brainType: currentBrain
         }),
     })
     .then(response => response.json())
@@ -84,6 +92,8 @@ function sendMessage() {
     })
     .catch((error) => {
         console.error('Error:', error);
+            addMessageToChat("Error sending message. Please try again.", 'bot');
+
     });
 
     document.getElementById("user-input").value = "";

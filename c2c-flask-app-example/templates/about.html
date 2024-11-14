@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical AI Test Knowledge</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='about.css') }}">
+</head>
+<body>
+  <div class="container">
+    <!-- Introduction Section -->
+    <section class="intro">
+        <img src="{{ url_for('static', filename='MIR_logo.png') }}" alt="Logo" class="logo">
+        <h1>What is My MRI?</h1>
+      <p>We created My MRI with the intention of tackling medical health problems in the brain using AI. Humans can only achieve so much; we’re not perfect, and doctors and nurses can make human errors from time to time. The goal of this AI is to help minimize these errors by identifying illnesses or issues in the brain, especially in challenging cases where even doctors may be unsure of how to proceed.</p>
+    </section>
+
+    <!-- Applications Section -->
+    <section class="applications">
+      <h1>Applications</h1>
+      <p>The applications for this tool could be limitless, assisting doctors in hospitals with treatment planning or helping med students prepare for exams. My MRI aims to harness AI to eliminate doubts in any brain-related decisions or analyses.</p>
+
+      <h2>Possible Applications Include:</h2>
+      <ul>
+        <li>Study aid for med students</li>
+        <li>Assistant for doctors</li>
+        <li>Mentor and diagnosis checker for interns</li>
+        <li>Final decision-maker in cases of conflicting medical opinions</li>
+      </ul>
+    </section>
+
+    <!-- Possible Improvements Section -->
+    <section class="improvements">
+      <h1>Possible Improvements</h1>
+      <ul>
+        <li>Expand to include organ and skeletal scans to identify fractures, breaks, and organ failure</li>
+        <li>Analyze neuron activity to understand the brain’s signal transmission processes</li>
+        <li>Match patients for organ donations, plasma, and blood transfusions</li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+</body>
+</html>

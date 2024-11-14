@@ -10,7 +10,7 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-openai.api_key = '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'
+openai.api_key = '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'
 app.secret_key = 'supersecretkey'
 
 
@@ -22,6 +22,10 @@ def home():
 @app.route('/knowledge_page')
 def knowledge_page():
     return render_template('knowledge_page.html')
+
+@app.route('/about_page')
+def about_page():
+    return render_template('about.html')
 # Chat route - handles the conversation with the LLM
 @app.route('/chat', methods=['POST'])
 def chat():
@@ -30,6 +34,7 @@ def chat():
     if not data or 'message' not in data or 'brainType' not in data:
         print("Error: Missing 'message' or 'brainType' in request JSON")  # Debug
         return jsonify({'error': "Missing 'message' or 'brainType' in request"}), 400
+
     user_message = request.json['message']
     brain_type = request.json['brainType']
     print("User message:", user_message)  # Debug
@@ -51,9 +56,10 @@ def chat():
 
     try:
         # Make a request to OpenAI API
-        response = openai.chat.completions.create(model="gpt-3.5-turbo",
-                                                  messages=messages)
-        gpt_response = response['choices'][0]['message']['content']
+        response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
+
+
+        gpt_response = response.choices[0].message['content']
         print("GPT response:", gpt_response) #debug
 
         session['conversation'].append({
@@ -63,8 +69,8 @@ def chat():
 
         return jsonify({'response': gpt_response})
     except Exception as e:
-        print("OpenAI API error:", openai_error)
-        return jsonify({'error': 'OpenAI API error: ' + str(openai_error)}), 500 #debg
+        print("OpenAI API error:", str(e))
+        return jsonify({'error': 'OpenAI API error: ' + str(e)}), 500 #debg
         return jsonify({'error': str(e)}), 500
     except Exception as e:
         print("Error:", str(e))

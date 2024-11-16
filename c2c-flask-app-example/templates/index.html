@@ -11,10 +11,16 @@
         <h1>My MRI AI</h1>
         <!-- Webcam and image recognition elements -->
         <div id="webcam-container">
+
             <button onclick="closeWebcam()" aria-label="Close alert" type="button" data-close>
                 <span aria-hidden="true">&times;</span> </button>
             <!--added button to close webcam-->
         </div>
+          <!-- Display the detected brain type-->
+        <div id="brain-type-container">
+            <strong>Brain Type:</strong> <span id="brain-type">Unknown</span>
+        </div>
+
         <div id="label-container"></div>
         <button onclick="init()">Start Webcam</button>
         <!--added button for test page-->

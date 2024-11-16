@@ -28,15 +28,29 @@ def about_page():
     return render_template('about.html')
 # Chat route - handles the conversation with the LLM
 @app.route('/chat', methods=['POST'])
+
 def chat():
     # Check if the incoming JSON data has the expected fields
     data = request.json
+    brain_type_descriptions = {
+    "meningioma": "Meningiomas are typically benign tumors arising from the meninges. They are often slow-growing and can cause symptoms based on their size and location.",
+    "glioblastoma": "Glioblastomas are aggressive and malignant brain tumors that arise from glial cells.",
+    # Add more types here...
+    "unknown": "The brain type could not be classified. Please consult a medical professional for detailed diagnosis.",
+    "glioma": "Gliomas can cause a range of symptoms, including headaches, seizures, nausea, vomiting, and vision problems. Other symptoms include personality changes, weakness, numbness, and speech difficulties. Symptoms can vary depending on the type and location of the tumor, as well as its size and how quickly it's growing. Some gliomas don't cause any symptoms. ",
+    "pituitary": "The symptoms of a pituitary tumor depend on the type of tumor and where it's located in the pituitary gland. Pituitary tumors can be diagnosed with blood and urine tests, a CT scan, MRI, or biopsy. Treatments include surgery, radiation therapy, medicine, radiosurgery, or gamma knife treatment.",
+}
+    
     if not data or 'message' not in data or 'brainType' not in data:
         print("Error: Missing 'message' or 'brainType' in request JSON")  # Debug
         return jsonify({'error': "Missing 'message' or 'brainType' in request"}), 400
 
     user_message = request.json['message']
     brain_type = request.json['brainType']
+
+    # getting description from the dictionary
+    description = brain_type_descriptions.get(brain_type, "No specific information available for this brain type.")
+
     print("User message:", user_message)  # Debug
     print("Brain type:", brain_type)  # Debug
 
@@ -44,7 +58,10 @@ def chat():
         session['conversation'] = []
 
     session['conversation'].append({"role": "user", "content": user_message})
-    system_message = f"The user is showing a picture of a {brain_type}. Respond accordingly."
+    brain_type = request.json['brainType']
+
+    system_message = f"The user is showing a picture of a brain classified as {brain_type}: {description}. Provide relevant information."
+
     messages = [{
         "role": "system",
         "content": system_message

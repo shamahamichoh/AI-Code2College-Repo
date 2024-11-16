@@ -51,6 +51,9 @@ async function predict() {
         }
     }
     if (!found) currentBrain = "unknown";
+    console.log("Brain type not recognized. Defaulting to 'unknown'.")
+     // Update braub detexted in html
+    document.getElementById("brain-type").textContent = currentBrain;
 
 }
 // function to close webcam
@@ -75,6 +78,8 @@ function sendMessage() {
     if (userInput.trim() === "") return;
 
     addMessageToChat(userInput, 'user');
+    console.log("Sending Brain Type:", currentBrain); // Log the brain type being sent
+
 
     fetch('/chat', {
         method: 'POST',

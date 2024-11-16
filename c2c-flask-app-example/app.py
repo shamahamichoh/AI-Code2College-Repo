@@ -12,6 +12,13 @@ Session(app)
 
 openai.api_key = ''
 app.secret_key = 'supersecretkey'
+topic_info = ""
+try:
+    with open('topic_prompts/medAI.txt', 'r') as file:
+        topic_info = file.read()
+except Exception as e:
+    print(f"Failed to read topic descriptions: {e}")
+
 
 
 # Home route
@@ -59,8 +66,11 @@ def chat():
 
     session['conversation'].append({"role": "user", "content": user_message})
     brain_type = request.json['brainType']
+    
+    system_message = f"The user is showing a picture of a brain classified as {brain_type}: {description}. Act as if you can see the image and give info on the tumor type.  Here is some additional information and context: + {topic_info}"
 
-    system_message = f"The user is showing a picture of a brain classified as {brain_type}: {description}. Act as if you can see the image and give info on the tumor type."
+
+
 
     messages = [{
         "role": "system",

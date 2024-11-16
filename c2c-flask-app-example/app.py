@@ -10,7 +10,7 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-openai.api_key = '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'
+openai.api_key = ''
 app.secret_key = 'supersecretkey'
 
 
@@ -60,7 +60,7 @@ def chat():
     session['conversation'].append({"role": "user", "content": user_message})
     brain_type = request.json['brainType']
 
-    system_message = f"The user is showing a picture of a brain classified as {brain_type}: {description}. Provide relevant information."
+    system_message = f"The user is showing a picture of a brain classified as {brain_type}: {description}. Act as if you can see the image and give info on the tumor type."
 
     messages = [{
         "role": "system",

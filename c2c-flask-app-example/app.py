@@ -3,7 +3,6 @@ from flask_session import Session
 import openai
 import os
 
-
 app = Flask(__name__)
 
 # Session configuration
@@ -11,8 +10,8 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-openai.api_key = 'YOUR_OPENAI_API_KEY'  # Replace with your OpenAI API key
-app.secret_key = 'supersecretkey'
+openai.api_key = os.environ["OPENAI_API_KEY"]
+app.secret_key = os.environ["FLASK_SECRET_KEY"]
 topic_info = ""
 try:
     with open('topic_prompts/medAI.txt', 'r') as file:
@@ -106,5 +105,4 @@ def chat():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0", port=8080)
     app.run(host="0.0.0.0", port=8080)
